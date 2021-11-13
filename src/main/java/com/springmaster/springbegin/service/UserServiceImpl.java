@@ -5,6 +5,8 @@ import com.springmaster.springbegin.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -19,7 +21,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUsers(long userId) {
+    public User getUserById(long userId) {
         return userDAO.getUserById(userId);
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userDAO.getAllUsers();
+    }
+
+
 }
