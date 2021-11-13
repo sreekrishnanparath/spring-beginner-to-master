@@ -4,6 +4,8 @@ package com.springmaster.springbegin.controller;
 import com.springmaster.springbegin.model.User;
 import com.springmaster.springbegin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,9 @@ public class UserController {
 
     @Autowired
     UserService service;
+
+    @Autowired
+    MessageSource messageSource;
 
     @PostMapping("/createUser")
     public ResponseEntity<User> addUser(@RequestBody User user) {
@@ -44,6 +49,12 @@ public class UserController {
         List<User> userList = service.getAllUsers();
         System.out.println("userList##" + userList);
         return new ResponseEntity<List<User>>(userList, HttpStatus.FOUND);
+    }
+
+    @GetMapping("/getMultiLan")// internalization concept
+    public String sayGoodMorning() {
+        return messageSource.
+                getMessage("good.morning",null,"default good morning",LocaleContextHolder.getLocale());
     }
 
 }
