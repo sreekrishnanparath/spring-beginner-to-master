@@ -1,5 +1,6 @@
 package com.springmaster.springbegin.model;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @JsonIgnoreProperties(value={"createdDate"})
+@JsonFilter("testFilter")
 @Entity
 public class User {
 

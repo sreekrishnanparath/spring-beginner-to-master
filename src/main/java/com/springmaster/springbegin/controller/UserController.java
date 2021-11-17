@@ -1,6 +1,10 @@
 package com.springmaster.springbegin.controller;
 
 
+import com.fasterxml.jackson.databind.ser.BeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.springmaster.springbegin.model.User;
 import com.springmaster.springbegin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.parser.Entity;
@@ -49,6 +54,19 @@ public class UserController {
         List<User> userList = service.getAllUsers();
         System.out.println("userList##" + userList);
         return new ResponseEntity<List<User>>(userList, HttpStatus.FOUND);
+    }
+
+
+
+    @GetMapping("/dynamic-filter-user/{userId}")
+    public MappingJacksonValue getDynamicfilterUser(@PathVariable long userId){
+        User userData = service.getUserById(userId);
+
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("userId","firstName");
+        FilterProvider filters = new SimpleFilterProvider().addFilter("testFilter",filter);
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(userData);
+        mappingJacksonValue.setFilters(filters);
+        return mappingJacksonValue;
     }
 
     @GetMapping("/getMultiLan")// internalization concept
