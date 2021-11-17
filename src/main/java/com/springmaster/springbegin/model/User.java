@@ -1,5 +1,7 @@
 package com.springmaster.springbegin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 import java.util.Date;
 
+@JsonIgnoreProperties(value={"createdDate"})
 @Entity
 public class User {
 
@@ -43,6 +46,7 @@ public class User {
         this.firstName = firstName;
     }
 
+    @JsonIgnore
     public String getLastName() {
         return lastName;
     }
