@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 import java.util.Date;
 
-@JsonIgnoreProperties(value={"createdDate"})
-@JsonFilter("testFilter")
+//@JsonIgnoreProperties(value={"createdDate"})
+//@JsonFilter("testFilter")
 @Entity
 public class User {
 
@@ -48,7 +48,7 @@ public class User {
         this.firstName = firstName;
     }
 
-    @JsonIgnore
+
     public String getLastName() {
         return lastName;
     }
@@ -79,6 +79,15 @@ public class User {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public User(long userId, String firstName, String lastName) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User() {
     }
 }
 

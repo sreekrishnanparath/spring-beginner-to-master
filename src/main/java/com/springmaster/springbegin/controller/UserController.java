@@ -75,6 +75,53 @@ public class UserController {
                 getMessage("good.morning",null,"default good morning",LocaleContextHolder.getLocale());
     }
 
+    @GetMapping("/v1/users")
+    public ResponseEntity<User> getV1User() {
+        User user = new User(1,"sree","krishnan");
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/v2/users")
+    public ResponseEntity<User> getV2User() {
+        User user = new User(2,"sree","krishnan");
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value="/versioning/param",params = "version=1")
+    public ResponseEntity<User> getV1paramsUser() {
+        User user = new User(1,"sree","krishnan");
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value="/versioning/param",params = "version=2")
+    public ResponseEntity<User> getV2paramsUser() {
+        User user = new User(2,"sree","krishnan");
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value="/versioning/header",headers = "X-API-VERSION=1")
+    public ResponseEntity<User> getV1HeadersUser() {
+        User user = new User(1,"sree","krishnan");
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value="/versioning/header",headers = "X-API-VERSION=2")
+    public ResponseEntity<User> getV2HeaderUser() {
+        User user = new User(2,"sree","krishnan");
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value="/versioning/produces",headers = "application/vnd.company.app-v1+json")
+    public ResponseEntity<User> getV1producesUser() {
+        User user = new User(1,"sree","krishnan");
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value="/versioning/produces",produces = "application/vnd.company.app-v2+json")
+    public ResponseEntity<User> getV2producesUser() {
+        User user = new User(2,"sree","krishnan");
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
 }
 
 
